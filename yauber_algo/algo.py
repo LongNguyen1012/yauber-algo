@@ -28,11 +28,11 @@ def _check_series_args(**kwargs):
     arg_type = None
     for arg_n, arg_val in kwargs.items():
         if not isinstance(arg_val, (pd.Series, np.ndarray)):
-            raise YaUberAlgoArgumentError(f"Argument <{arg_n}> must be pd.Series or np.ndarray, got {type(arg_val)}")
+            raise YaUberAlgoArgumentError("Argument <{}> must be pd.Series or np.ndarray, got {}".format(arg_n, type(arg_val)))
 
         if arg_val.dtype not in (np.float, np.bool, np.int32, np.int64, np.float32):
-            raise YaUberAlgoDtypeNotSupportedError(f'Argument <{arg_n}> must have dtype in (np.float, np.int32, np.int64, np.bool), '
-                                                  f'got {arg_val.dtype}')
+            raise YaUberAlgoDtypeNotSupportedError('Argument <{}> must have dtype in (np.float, np.int32, np.int64, np.bool), \
+                                                   got {}'.format(arg_n, arg_val.dtype))
         if arr_len != -1:
             if arr_len != len(arg_val):
                 raise YaUberAlgoArgumentError("Arguments have different lengths.")
@@ -41,7 +41,7 @@ def _check_series_args(**kwargs):
 
         if arg_type is not None:
             if type(arg_val) != arg_type:
-                raise YaUberAlgoArgumentError(f'Arguments must have the same type, got: {type(arg_val)} vs previous {arg_type}')
+                raise YaUberAlgoArgumentError('Arguments must have the same type, got: {} vs previous {}'.format(type(arg_val), arg_type))
         else:
             arg_type = type(arg_val)
 
@@ -69,9 +69,9 @@ def ref(arr, period):
     """
     if period > 0:
         if IS_WARN_FUTREF:
-            warnings.warn(f"Future reference detected in ref(), period: {period}")
+            warnings.warn("Future reference detected in ref(), period: {}".format(period))
         if IS_RAISE_FUTREF:
-            raise YaUberAlgoFutureReferenceError(f"Future reference detected in ref(), period: {period}")
+            raise YaUberAlgoFutureReferenceError("Future reference detected in ref(), period: {}".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(arr=arr)
@@ -116,7 +116,7 @@ def hhv(arr, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(arr=arr)
@@ -136,7 +136,7 @@ def llv(arr, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(arr=arr)
@@ -252,7 +252,7 @@ def sum(arr, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(arr=arr)
@@ -272,7 +272,7 @@ def ma(arr, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(arr=arr)
@@ -292,7 +292,7 @@ def stdev(arr, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(arr=arr)
@@ -318,7 +318,7 @@ def percent_rank(arr, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(arr=arr)
@@ -341,7 +341,7 @@ def percent_rank_category(arr, category, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(arr=arr, category=category)
@@ -373,7 +373,7 @@ def apply(arr, period, func, category=None, return_as_cat=None, exclude_nan=True
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _kwargs = {}
@@ -441,7 +441,7 @@ def zscore(arr, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(arr=arr)
@@ -537,10 +537,10 @@ def nz(arr, fill_by):
     _check_series_args(arr=arr)
 
     if not isinstance(fill_by, (float, int, bool, np.float, np.int, np.int32, np.bool)):
-        raise YaUberAlgoArgumentError(f"'fill_by' must be float, int, bool, got {type(fill_by)}")
+        raise YaUberAlgoArgumentError("'{}' must be float, int, bool, got {}".format(fill_by, type(fill_by))
 
     if not isfinite(fill_by):
-        raise YaUberAlgoArgumentError(f"'fill_by' must be finite number, got {fill_by}")
+        raise YaUberAlgoArgumentError("'{}' must be finite number, got {}".format(fill_by, fill_by))
 
     if isinstance(arr, pd.Series):
         return pd.Series(_nz(arr.values, fill_by), index=arr.index)
@@ -558,7 +558,7 @@ def quantile(arr, period, q):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     _q = _get_series_or_number(q, arr)
     is_not_nan_q = ~np.isnan(_q)
@@ -601,7 +601,7 @@ def roc(arr, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(arr=arr)
@@ -627,7 +627,7 @@ def roc_log(arr, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(arr=arr)
@@ -653,7 +653,7 @@ def diff(arr, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(arr=arr)
@@ -676,7 +676,7 @@ def rsi(arr, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(arr=arr)
@@ -704,7 +704,7 @@ def rangehilo(o, h, l, c, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(o=o, h=h, l=l, c=c)
@@ -732,7 +732,7 @@ def rangeclose(h, l, c, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(h=h, l=l, c=c)
@@ -759,7 +759,7 @@ def wma(arr, weight, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(arr=arr, weight=weight)
@@ -782,7 +782,7 @@ def correlation(x, y, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(x=x, y=y)
@@ -843,7 +843,7 @@ def truerange(h, l, c, period, is_pct=False):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(h=h, l=l, c=c)
@@ -869,7 +869,7 @@ def updn_ratio(arr, period):
     :return:
     """
     if period <= 0:
-        raise YaUberAlgoArgumentError(f"'period' must be positive number")
+        raise YaUberAlgoArgumentError("'{}' must be positive number".format(period))
 
     # Do quick sanity checks of arguments
     _check_series_args(arr=arr)
