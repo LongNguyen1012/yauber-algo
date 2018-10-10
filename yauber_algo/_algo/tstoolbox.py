@@ -510,7 +510,7 @@ def _nz(arr, fill_by):
 @jit(nopython=True)
 def _roc(arr, period):
     if period <= 0:
-        raise ValueError(f"'period' must be positive number")
+        raise ValueError("{} must be positive number".format(period))
 
     bc = len(arr)
     result = np.full(bc, nan)
@@ -527,7 +527,7 @@ def _roc(arr, period):
 @jit(nopython=True)
 def _roc_log(arr, period):
     if period <= 0:
-        raise ValueError(f"'period' must be positive number")
+        raise ValueError("{} must be positive number".format(period))
 
     bc = len(arr)
     result = np.full(bc, nan)
@@ -544,7 +544,7 @@ def _roc_log(arr, period):
 @jit(nopython=True)
 def _diff(arr, period):
     if period <= 0:
-        raise ValueError(f"'period' must be positive number")
+        raise ValueError("{} must be positive number".format(period))
 
     bc = len(arr)
     result = np.full(bc, nan)
