@@ -524,7 +524,6 @@ def _roc(arr, period):
 
     return result
 
-@jit(nopython=True)
 def _roc_log(arr, period):
     if period <= 0:
         raise ValueError("{} must be positive number".format(period))
