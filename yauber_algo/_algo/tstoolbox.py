@@ -4,7 +4,6 @@ from numpy import nan
 from numba import jit
 
 
-@jit(nopython=True)
 def _ref(arr, period):
     bc = len(arr)
     result = np.full(bc, np.nan)
@@ -19,7 +18,6 @@ def _ref(arr, period):
     return result
 
 
-@jit(nopython=True)
 def _iif(cond, if_true_arr, if_false_arr):
     bc = len(cond)
     result = np.full(bc, np.nan)
@@ -41,7 +39,6 @@ def _iif(cond, if_true_arr, if_false_arr):
     return result
 
 
-@jit(nopython=True)
 def _hhv(arr, period):
     if period <= 0:
         raise ValueError()
@@ -78,7 +75,6 @@ def _hhv(arr, period):
     return result
 
 
-@jit(nopython=True)
 def _llv(arr, period):
     if period <= 0:
         raise ValueError()
@@ -115,7 +111,6 @@ def _llv(arr, period):
     return result
 
 
-@jit(nopython=True)
 def _highest_since(arr, cond):
     bc = len(arr)
     result = np.full(bc, nan)
@@ -144,7 +139,6 @@ def _highest_since(arr, cond):
     return result
 
 
-@jit(nopython=True)
 def _lowest_since(arr, cond):
     bc = len(arr)
     result = np.full(bc, nan)
@@ -173,7 +167,6 @@ def _lowest_since(arr, cond):
     return result
 
 
-@jit(nopython=True)
 def _bars_since(cond):
     bc = len(cond)
     result = np.full(bc, nan)
@@ -196,7 +189,6 @@ def _bars_since(cond):
     return result
 
 
-@jit(nopython=True)
 def _cross_up(arr, arr_threshold):
     bc = len(arr_threshold)
     result = np.full(bc, nan)
@@ -211,7 +203,6 @@ def _cross_up(arr, arr_threshold):
     return result
 
 
-@jit(nopython=True)
 def _cross_dn(arr, arr_threshold):
     bc = len(arr_threshold)
     result = np.full(bc, nan)
@@ -226,7 +217,6 @@ def _cross_dn(arr, arr_threshold):
     return result
 
 
-@jit(nopython=True)
 def _sum(arr, period):
     if period <= 0:
         raise ValueError('Period must be positive')
@@ -260,7 +250,6 @@ def _sum(arr, period):
     return result
 
 
-@jit(nopython=True)
 def _ma(arr, period):
     if period <= 0:
         raise ValueError('Period must be positive')
@@ -294,7 +283,6 @@ def _ma(arr, period):
     return result
 
 
-@jit(nopython=True)
 def _stdev(arr, period):
     MIN_STDEV_PERIODS = 5
 
@@ -336,7 +324,6 @@ def _stdev(arr, period):
     return result
 
 
-@jit(nopython=True)
 def _sum_since(arr, cond, first_is_zero=False):
     bc = len(cond)
     result = np.full(bc, nan)
@@ -372,7 +359,6 @@ def _sum_since(arr, cond, first_is_zero=False):
 
     return result
 
-@jit(nopython=True)
 def _zscore(arr, period):
     MIN_STDEV_PERIODS = 5
 
@@ -427,7 +413,6 @@ def _zscore(arr, period):
     return result
 
 
-@jit(nopython=True)
 def _min(arr1, arr2):
 
     bc = len(arr1)
@@ -443,7 +428,6 @@ def _min(arr1, arr2):
     return result
 
 
-@jit(nopython=True)
 def _max(arr1, arr2):
 
     bc = len(arr1)
@@ -459,7 +443,6 @@ def _max(arr1, arr2):
     return result
 
 
-@jit(nopython=True)
 def _abs(arr):
 
     bc = len(arr)
@@ -471,7 +454,6 @@ def _abs(arr):
 
     return result
 
-@jit(nopython=True)
 def _value_when(arr, cond):
     bc = len(cond)
     result = np.full(bc, nan)
@@ -495,7 +477,6 @@ def _value_when(arr, cond):
     return result
 
 
-@jit(nopython=True)
 def _nz(arr, fill_by):
 
     bc = len(arr)
@@ -507,7 +488,6 @@ def _nz(arr, fill_by):
 
     return result
 
-@jit(nopython=True)
 def _roc(arr, period):
     if period <= 0:
         raise ValueError("{} must be positive number".format(period))
@@ -540,7 +520,6 @@ def _roc_log(arr, period):
 
     return result
 
-@jit(nopython=True)
 def _diff(arr, period):
     if period <= 0:
         raise ValueError("{} must be positive number".format(period))
@@ -555,7 +534,6 @@ def _diff(arr, period):
     return result
 
 
-@jit(nopython=True)
 def _rsi(arr, period):
     if period <= 0:
         raise ValueError('Period must be positive')
@@ -611,7 +589,6 @@ def _rsi(arr, period):
 
     return result
 
-@jit(nopython=True)
 def _rangehilo(o, h, l, c, period):
     if period <= 0:
         raise ValueError()
@@ -693,7 +670,6 @@ def _rangehilo(o, h, l, c, period):
     return result
 
 
-@jit(nopython=True)
 def _rangeclose(h, l, c, period):
     if period <= 0:
         raise ValueError()
@@ -768,7 +744,6 @@ def _rangeclose(h, l, c, period):
     return result
 
 
-@jit(nopython=True)
 def _wma(arr, weight, period):
     if period <= 0:
         raise ValueError('Period must be positive')
@@ -814,7 +789,6 @@ def _wma(arr, weight, period):
     return result
 
 
-@jit(nopython=True)
 def _correlation(x, y, period):
     MIN_STDEV_PERIODS = 5
 
@@ -869,7 +843,6 @@ def _correlation(x, y, period):
     return result
 
 
-@jit(nopython=True)
 def _truerange(h, l, c, period, is_pct):
     if period <= 0:
         raise ValueError()
@@ -953,7 +926,6 @@ def _truerange(h, l, c, period, is_pct):
     return result
 
 
-@jit(nopython=True)
 def _updn_ratio(arr, period):
     if period <= 0:
         raise ValueError('Period must be positive')
