@@ -537,7 +537,7 @@ def nz(arr, fill_by):
     _check_series_args(arr=arr)
 
     if not isinstance(fill_by, (float, int, bool, np.float, np.int, np.int32, np.bool)):
-        raise YaUberAlgoArgumentError("'{}' must be float, int, bool, got {}".format(fill_by, type(fill_by))
+        raise YaUberAlgoArgumentError("'{}' must be float, int, bool, got {}".format(fill_by, type(fill_by)))
 
     if not isfinite(fill_by):
         raise YaUberAlgoArgumentError("'{}' must be finite number, got {}".format(fill_by, fill_by))
